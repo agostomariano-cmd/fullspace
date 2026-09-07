@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FULLSPACE — El espacio justo. 24/7.</title>
+<meta name="description" content="Mini-depósitos desde 2 m², acceso 24 hs, carga y descarga con camión, oficinas, estudio de fotos y fulfillment. Contratos mensuales, sin garantía.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --concreto:#E9E7E1;
+    --concreto-2:#DCD9D1;
+    --chapa:#243240;
+    --chapa-2:#1B2631;
+    --amarillo:#F2C41C;
+    --acero:#7C8791;
+    --tinta:#20262C;
+    --blanco:#FAFAF8;
+    --ok:#3E8E5A;
+    --radius:4px;
+    --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important;animation:none!important}}
+  body{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100;background:var(--concreto);color:var(--tinta);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  h1,h2,h3{line-height:1.05;font-weight:800;font-variation-settings:'wdth' 112;letter-spacing:-.01em}
+  h1{font-size:clamp(2.4rem,6vw,4.6rem)}
+  h2{font-size:clamp(1.8rem,3.6vw,2.8rem);margin-bottom:.6em}
+  h3{font-size:1.25rem;font-variation-settings:'wdth' 105}
+  p{max-width:62ch}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+  section{padding:clamp(56px,8vw,110px) 0}
+
+  /* cinta de señalización — el elemento memorable */
+  .cinta{height:14px;background:repeating-linear-gradient(135deg,var(--amarillo) 0 22px,var(--tinta) 22px 44px)}
+
+  /* header */
+  header{position:sticky;top:0;z-index:20;background:var(--concreto);border-bottom:2px solid var(--tinta)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.35rem;font-variation-settings:'wdth' 125;letter-spacing:.04em;text-decoration:none}
+  .logo svg{width:52px;height:34px}
+  .nav ul{display:flex;gap:26px;list-style:none;font-size:.95rem;font-weight:600}
+  .nav ul a{text-decoration:none}
+  .nav ul a:hover{text-decoration:underline;text-underline-offset:4px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--tinta);color:var(--blanco);padding:12px 20px;border-radius:var(--radius);font-weight:700;text-decoration:none;border:2px solid var(--tinta);cursor:pointer;font-size:1rem;font-family:inherit}
+  .btn:hover{background:var(--chapa)}
+  .btn.amarillo{background:var(--amarillo);color:var(--tinta);border-color:var(--tinta)}
+  .btn.amarillo:hover{background:#ffd43a}
+  .btn.ghost{background:transparent;color:var(--tinta)}
+  .btn.ghost:hover{background:var(--concreto-2)}
+  .btn:focus-visible,a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--amarillo);outline-offset:2px}
+  @media(max-width:820px){.nav ul{display:none}}
+
+  /* hero */
+  .hero{padding:clamp(48px,7vw,96px) 0 clamp(40px,6vw,80px)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+  .hero p.lead{font-size:1.2rem;margin:22px 0 30px;max-width:48ch;color:#3a434c}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .hero-actions small{display:block;width:100%;margin-top:10px;color:var(--acero);font-size:.9rem}
+
+  /* calculadora / selector */
+  .calc{background:var(--blanco);border:2px solid var(--tinta);border-radius:var(--radius);padding:22px;box-shadow:8px 8px 0 var(--tinta)}
+  .calc h3{margin-bottom:4px}
+  .calc .sub{font-size:.9rem;color:var(--acero);margin-bottom:16px}
+  .grid-plan{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+  .cel{border:2px solid var(--tinta);border-radius:var(--radius);background:var(--concreto);cursor:pointer;font-family:inherit;padding:10px 6px;text-align:center;transition:background .15s}
+  .cel b{display:block;font-size:1.3rem;font-weight:900;line-height:1}
+  .cel span{font-size:.78rem;color:#3a434c;display:block;margin-top:4px}
+  .cel[aria-pressed="true"]{background:var(--amarillo)}
+  .cel:hover{background:#f7e28a}
+  .calc label{font-size:.85rem;font-weight:700;display:block;margin:12px 0 6px}
+  .calc select{width:100%;padding:10px;border:2px solid var(--tinta);border-radius:var(--radius);font-family:inherit;font-size:1rem;background:var(--blanco)}
+  .resultado{margin-top:18px;padding-top:16px;border-top:2px dashed var(--concreto-2);display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+  .resultado .precio{font-size:2.1rem;font-weight:900;line-height:1;font-variation-settings:'wdth' 112}
+  .resultado .precio s{font-size:1rem;color:var(--acero);font-weight:500;display:block;margin-bottom:4px}
+  .resultado .nota{font-size:.8rem;color:var(--acero);max-width:24ch}
+  .caben{font-size:.9rem;margin-top:10px;color:#3a434c;min-height:2.6em}
+
+  /* franja de datos */
+  .datos{background:var(--chapa);color:var(--blanco);padding:22px 0}
+  .datos .wrap{display:flex;gap:clamp(20px,4vw,56px);flex-wrap:wrap;justify-content:space-between}
+  .datos div{display:flex;align-items:baseline;gap:8px}
+  .datos b{font-size:1.6rem;font-weight:900;color:var(--amarillo)}
+  .datos span{font-size:.92rem;color:#c8cfd6}
+
+  /* para quién */
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--tinta);border-radius:var(--radius);overflow:hidden;background:var(--blanco)}
+  .seg article{padding:28px;border-right:2px solid var(--tinta);display:flex;flex-direction:column;align-items:center;text-align:center}
+  .seg article p{max-width:100%}
+  .seg ul{width:100%;text-align:left}
+  .seg article .btn{margin-top:auto;align-self:center}
+  .seg article:last-child{border-right:0}
+  .seg article h3{margin-bottom:8px}
+  .seg .tam{font-weight:700;color:var(--acero);font-size:.9rem;margin-bottom:12px}
+  .seg ul{list-style:none;margin:14px 0 18px;font-size:.95rem}
+  .seg li{padding:5px 0 5px 20px;position:relative}
+  .seg li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:10px;background:var(--amarillo);border:2px solid var(--tinta)}
+  @media(max-width:900px){.seg{grid-template-columns:1fr}.seg article{border-right:0;border-bottom:2px solid var(--tinta)}.seg article:last-child{border-bottom:0}}
+
+  /* incluye */
+  .incluye{background:var(--concreto-2)}
+  .lista-inc{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px;margin-top:10px}
+  .lista-inc div{border-top:3px solid var(--tinta);padding-top:14px}
+  .lista-inc h3{font-size:1.05rem;margin-bottom:6px}
+  .lista-inc p{font-size:.95rem;color:#3a434c}
+  @media(max-width:900px){.lista-inc{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.lista-inc{grid-template-columns:1fr}}
+
+  /* edificio */
+  .edificio-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+  @media(max-width:900px){.edificio-grid{grid-template-columns:1fr}}
+  .niveles{display:flex;flex-direction:column-reverse;gap:6px}
+  .nivel{display:grid;grid-template-columns:70px 1fr;align-items:stretch;gap:10px}
+  .nivel .tag{background:var(--tinta);color:var(--amarillo);font-weight:900;display:flex;align-items:center;justify-content:center;border-radius:var(--radius);font-variation-settings:'wdth' 118}
+  .nivel .barra{background:var(--blanco);border:2px solid var(--tinta);border-radius:var(--radius);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .nivel .barra b{font-size:1.05rem}
+  .nivel .barra span{font-size:.88rem;color:#3a434c}
+  .nivel.pb .barra{background:var(--amarillo)}
+
+  /* precios */
+  table{width:100%;border-collapse:collapse;background:var(--blanco);border:2px solid var(--tinta);font-size:1rem}
+  th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--concreto-2)}
+  th{background:var(--tinta);color:var(--blanco);font-weight:700;font-size:.9rem}
+  th.rec{background:var(--amarillo);color:var(--tinta)}
+  td b{font-weight:800}
+  td s{color:var(--acero);font-weight:400;font-size:.85rem;display:block}
+  tbody tr:last-child td{border-bottom:0}
+  .tabla-wrap{overflow-x:auto;margin-top:8px}
+  .precios p.nota{font-size:.85rem;color:var(--acero);margin-top:12px}
+  .promo{display:inline-block;background:var(--amarillo);border:2px solid var(--tinta);padding:6px 12px;font-weight:800;border-radius:var(--radius);margin-bottom:16px}
+
+  /* fulfillment */
+  .ful{background:var(--chapa);color:var(--blanco)}
+  .ful h2{color:var(--blanco)}
+  .ful p{color:#c8cfd6}
+  .ful-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,70px)}
+  @media(max-width:900px){.ful-grid{grid-template-columns:1fr}}
+  .pasos{list-style:none;counter-reset:p;margin-top:8px}
+  .pasos li{counter-increment:p;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid #3a4a5a;align-items:start}
+  .pasos li::before{content:counter(p);background:var(--amarillo);color:var(--tinta);font-weight:900;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius)}
+  .pasos b{display:block;color:var(--blanco)}
+  .pasos span{font-size:.92rem;color:#c8cfd6}
+  .integ{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .integ span{border:1px solid #5a6a7a;padding:6px 12px;border-radius:999px;font-size:.85rem;color:#e6eaee}
+
+  /* faq */
+  details{border-bottom:2px solid var(--tinta);padding:16px 0}
+  summary{cursor:pointer;font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:12px}
+  summary::after{content:"+";font-weight:900;font-size:1.3rem;color:var(--acero)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:#3a434c}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+  @media(max-width:900px){.faq-grid{grid-template-columns:1fr}}
+
+  /* contacto */
+  .contacto{background:var(--amarillo)}
+  .contacto-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,70px);align-items:start}
+  @media(max-width:900px){.contacto-grid{grid-template-columns:1fr}}
+  form{background:var(--blanco);border:2px solid var(--tinta);border-radius:var(--radius);padding:24px;box-shadow:8px 8px 0 var(--tinta)}
+  form label{display:block;font-size:.85rem;font-weight:700;margin:12px 0 6px}
+  form input,form select,form textarea{width:100%;padding:11px;border:2px solid var(--tinta);border-radius:var(--radius);font-family:inherit;font-size:1rem;background:var(--blanco)}
+  form textarea{min-height:90px;resize:vertical}
+  form .btn{margin-top:18px;width:100%;justify-content:center}
+  .dir{margin-top:22px;font-size:1rem}
+  .dir b{display:block}
+
+  footer{background:var(--tinta);color:#c8cfd6;padding:36px 0;font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  footer a{color:var(--blanco)}
+
+  .wa{position:fixed;right:18px;bottom:18px;z-index:30;background:#25D366;color:#fff;border:2px solid var(--tinta);border-radius:999px;padding:12px 18px;font-weight:800;text-decoration:none;box-shadow:4px 4px 0 var(--tinta);display:flex;gap:8px;align-items:center}
+</style>
+</head>
+<body>
+
+<div class="cinta" aria-hidden="true"></div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="FULLSPACE inicio">
+      <svg viewBox="0 0 66 44" aria-hidden="true"><rect x="0" y="0" width="18" height="18" fill="#F2C41C"/><rect x="24" y="1.5" width="15" height="15" fill="none" stroke="#20262C" stroke-width="3"/><rect x="48" y="1.5" width="15" height="15" fill="none" stroke="#20262C" stroke-width="3"/><rect x="1.5" y="25.5" width="15" height="15" fill="none" stroke="#20262C" stroke-width="3"/><rect x="24" y="25.5" width="15" height="15" fill="none" stroke="#20262C" stroke-width="3"/><rect x="48" y="25.5" width="15" height="15" fill="none" stroke="#20262C" stroke-width="3"/></svg>
+      FULLSPACE
+    </a>
+    <ul>
+      <li><a href="#para-quien">Para quién</a></li>
+      <li><a href="#incluye">Qué incluye</a></li>
+      <li><a href="#edificio">El edificio</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#fulfillment">Fulfillment</a></li>
+      <li><a href="#faq">Preguntas</a></li>
+    </ul>
+    <a class="btn amarillo" href="#contacto">Reservar visita</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>El espacio justo. 24/7.</h1>
+      <p class="lead">Tu stock, tu oficina y tus envíos en un mismo edificio. Mini-depósitos desde 2 m² con acceso las 24 horas, dársena para camiones, oficinas, estudio de fotos y fulfillment. Contrato mes a mes, sin garantía ni expensas.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contacto">Pedir cotización por WhatsApp</a>
+        <a class="btn ghost" href="#edificio">Ver el edificio</a>
+        <small>Ramos Mejía, a 10 minutos de General Paz. Apertura de planta baja y 1° piso: primer trimestre 2027. Reservá con precio de preventa.</small>
+      </div>
+    </div>
+
+    <div class="calc" aria-labelledby="calc-t">
+      <h3 id="calc-t">¿Cuánto espacio necesitás?</h3>
+      <p class="sub">Elegí un tamaño y un nivel. Los precios son de referencia, sin IVA.</p>
+      <div class="grid-plan" role="group" aria-label="Tamaño del depósito">
+        <button class="cel" data-m2="2" aria-pressed="false"><b>2</b><span>m²</span></button>
+        <button class="cel" data-m2="5" aria-pressed="true"><b>5</b><span>m²</span></button>
+        <button class="cel" data-m2="10" aria-pressed="false"><b>10</b><span>m²</span></button>
+        <button class="cel" data-m2="20" aria-pressed="false"><b>20</b><span>m²</span></button>
+      </div>
+      <label for="nivel">Nivel</label>
+      <select id="nivel">
+        <option value="pb">Planta baja — acceso directo con vehículo</option>
+        <option value="alto" selected>Pisos altos — con montacargas</option>
+      </select>
+      <label for="plazo">Permanencia</label>
+      <select id="plazo">
+        <option value="1">Mes a mes</option>
+        <option value="2">2 meses — 50 % off el primero</option>
+        <option value="4" selected>4 meses — 50 % off los primeros 2</option>
+        <option value="8">8 meses — 50 % off los primeros 4</option>
+      </select>
+      <div class="resultado">
+        <div class="precio"><s id="lista"></s><span id="precio"></span><small style="font-size:.9rem;font-weight:500;color:var(--acero)"> /mes</small></div>
+        <div class="nota" id="nota"></div>
+      </div>
+      <div class="caben" id="caben"></div>
+    </div>
+  </div>
+</section>
+
+<div class="datos">
+  <div class="wrap">
+    <div style="flex-basis:100%;font-weight:900;font-size:1.35rem;color:var(--amarillo);font-variation-settings:'wdth' 112;margin-bottom:6px">Ni un metro de más. Ni una hora de menos.</div>
+    <div><b>2.100</b><span>m² en cuatro niveles</span></div>
+    <div><b>24 hs</b><span>acceso, 365 días</span></div>
+    <div><b>2 – 60 m²</b><span>unidades privadas</span></div>
+    <div><b>0</b><span>garantía, expensas o comisión</span></div>
+  </div>
+</div>
+
+<section id="para-quien">
+  <div class="wrap">
+    <h2>Ni un metro de más: un depósito para cada tipo de cliente</h2>
+    <p style="margin-bottom:28px">Vendas por internet, tengas una pyme con stock o simplemente te falte lugar en casa: hay una unidad del tamaño justo y podés cambiarla cuando crezcas.</p>
+    <div class="seg">
+      <article>
+        <h3>Vendés online</h3>
+        <div class="tam">Unidades de 5 a 20 m²</div>
+        <p>Guardá el stock, armá los pedidos en la mesa de packing y despachá con el correo que quieras sin salir del edificio.</p>
+        <ul>
+          <li>Recepción de proveedores en tu nombre</li>
+          <li>Retiro de correos y couriers en el lugar</li>
+          <li>Estudio de fotos para el catálogo</li>
+          <li>Opción de fulfillment tercerizado</li>
+        </ul>
+        <a class="btn ghost" href="#contacto">Cotizar para mi tienda</a>
+      </article>
+      <article>
+        <h3>Tenés una empresa</h3>
+        <div class="tam">Unidades de 20 a 60 m² y combinables</div>
+        <p>Ampliá la capacidad de stock o archivá documentación sin firmar un contrato de tres años por un galpón entero.</p>
+        <ul>
+          <li>Dársena para camiones y contenedores</li>
+          <li>Pallets, zorras y montacargas</li>
+          <li>Domicilio fiscal y recepción de correspondencia</li>
+          <li>Oficina privada en el mismo edificio</li>
+        </ul>
+        <a class="btn ghost" href="#contacto">Cotizar para mi empresa</a>
+      </article>
+      <article>
+        <h3>Te falta lugar en casa</h3>
+        <div class="tam">Bauleras de 2 a 10 m²</div>
+        <p>Mudanza, reforma, cosas de temporada, herramientas, la colección que ya no entra. Entrás cuando quieras, con tu llave.</p>
+        <ul>
+          <li>Desde 2 m² (lo que ocupa un placard grande)</li>
+          <li>Candado propio o cerradura con código</li>
+          <li>Carritos y zorras sin cargo</li>
+          <li>Seguro opcional sobre el contenido</li>
+        </ul>
+        <a class="btn ghost" href="#contacto">Cotizar una baulera</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="incluye" id="incluye">
+  <div class="wrap">
+    <h2>Qué incluye tu unidad</h2>
+    <p style="margin-bottom:28px">Todo lo que sigue está dentro del precio mensual. Sin sorpresas en la factura.</p>
+    <div class="lista-inc">
+      <div><h3>Acceso 24 horas</h3><p>Todos los días del año, con control de acceso por código o tarjeta. Sin límite de visitas ni tiempo de permanencia.</p></div>
+      <div><h3>Seguridad permanente</h3><p>CCTV interno y externo, sensores de movimiento en pasillos, alarma y cerraduras individuales. Solo vos y tus autorizados entran a tu unidad.</p></div>
+      <div><h3>Carga y descarga</h3><p>Playa de maniobra con acceso a la red de tránsito pesado. Camiones, camionetas y contenedores descargan al lado de la puerta.</p></div>
+      <div><h3>Montacargas y equipos</h3><p>Montacargas a todos los pisos, zorras, carritos y pallets disponibles sin cargo.</p></div>
+      <div><h3>Recepción de mercadería</h3><p>Recibimos envíos de tus proveedores y correos en tu nombre y te avisamos por WhatsApp.</p></div>
+      <div><h3>Domicilio comercial</h3><p>Podés fijar tu domicilio fiscal en tu unidad u oficina. Guardamos la correspondencia hasta que pasás.</p></div>
+      <div><h3>Contrato flexible</h3><p>Mes a mes, ampliás o reducís la unidad cuando lo necesites. Sin garantía, sin expensas, sin comisión.</p></div>
+      <div><h3>Cowork y salas</h3><p>Puestos de trabajo, wifi, cocina y sala de reuniones para recibir clientes o proveedores.</p></div>
+      <div><h3>Estudio de fotos y streaming</h3><p>Espacio equipado con fondos e iluminación para fotografiar productos y grabar contenido.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="edificio">
+  <div class="wrap edificio-grid">
+    <div>
+      <h2>Cuatro niveles, cada uno pensado para un uso</h2>
+      <p>Las unidades grandes y la operación de carga van en planta baja, con acceso directo de vehículos. Los pisos altos concentran los mini-depósitos y las bauleras, atendidos por montacargas, y suman oficinas, cowork y el estudio.</p>
+      <p style="margin-top:14px">Edificio propio en la esquina de Cisneros y Av. de Mayo, Ramos Mejía: el primer centro de mini-depósitos de la zona oeste. Sin intermediarios, precios más bajos que la competencia y contratos más simples.</p>
+      <a class="btn" href="#contacto" style="margin-top:24px">Coordinar una visita</a>
+    </div>
+    <div class="niveles" aria-label="Distribución por nivel">
+      <div class="nivel pb"><div class="tag">PB</div><div class="barra"><b>715 m²</b><span>Recepción, dársena de carga, unidades 20–60 m², fulfillment</span></div></div>
+      <div class="nivel"><div class="tag">1°</div><div class="barra"><b>465 m²</b><span>Mini-depósitos e-commerce 5–20 m², mesas de packing</span></div></div>
+      <div class="nivel"><div class="tag">2°</div><div class="barra"><b>465 m²</b><span>Bauleras 2–10 m², oficinas privadas, cowork</span></div></div>
+      <div class="nivel"><div class="tag">3°</div><div class="barra"><b>465 m²</b><span>Bauleras 2–10 m², estudio de fotos y streaming, archivo</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="precios" id="precios">
+  <div class="wrap">
+    <h2>Precios claros</h2>
+    <div class="promo">Preventa: 50 % off en los primeros meses según permanencia</div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Unidad</th><th>Planta baja</th><th class="rec">Pisos altos — recomendado</th><th>Con 4 meses de permanencia</th></tr>
+        </thead>
+        <tbody id="tabla-precios"></tbody>
+      </table>
+    </div>
+    <p class="nota">Valores mensuales en pesos, sin IVA, de referencia para el lanzamiento. Las unidades de más de 20 m² y las combinaciones se cotizan por WhatsApp. Ajuste periódico por índice publicado en el contrato.</p>
+  </div>
+</section>
+
+<section class="ful" id="fulfillment">
+  <div class="wrap ful-grid">
+    <div>
+      <h2>Guardá, armá, despachá. 24/7.</h2>
+      <p style="margin-bottom:14px"><b style="color:var(--amarillo)">Armado de pedido de hasta 3 productos: $1.500 + IVA.</b> Ingreso de mercadería $600 por unidad o caja. Si preparás vos, pagás la mitad. Envío flex el mismo día a CABA y GBA con operador aliado.</p>
+      <p>Si tu tienda ya mueve pedidos todos los días, podés delegarnos la operación completa: los pedidos entran solos desde tu tienda, nosotros los armamos, etiquetamos y despachamos con el correo que corresponda.</p>
+      <p style="margin-top:14px">Escalás sin contratar gente ni alquilar un depósito propio, y seguís viendo el stock en tiempo real.</p>
+      <div class="integ" aria-label="Integraciones">
+        <span>Tienda Nube</span><span>Mercado Libre</span><span>Shopify</span><span>WooCommerce</span><span>Envío Pack</span><span>Andreani</span><span>Correo Argentino</span><span>OCA</span>
+      </div>
+    </div>
+    <ol class="pasos">
+      <li><div><b>Recepción de stock</b><span>Contamos, controlamos y damos de alta la mercadería en el sistema.</span></div></li>
+      <li><div><b>Almacenamiento</b><span>Ubicación por SKU, control de vencimientos y lotes si tus productos lo requieren.</span></div></li>
+      <li><div><b>Picking y packing</b><span>Armado del pedido con tu packaging y tus insertos, sin errores de sustitución.</span></div></li>
+      <li><div><b>Despacho</b><span>Etiqueta, colecta del correo y seguimiento hasta la entrega. Punto de retiro para tus clientes.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq-grid">
+      <div>
+        <details><summary>¿Necesito garantía o firmar por un plazo mínimo?</summary><p>No. Se paga el mes por adelantado y podés dar de baja avisando con 15 días. Los descuentos de lanzamiento sí requieren la permanencia elegida.</p></details>
+        <details><summary>¿Puedo entrar de noche o los domingos?</summary><p>Sí. El acceso es las 24 horas, los 365 días, con tu código o tarjeta. Cada ingreso queda registrado.</p></details>
+        <details><summary>¿Qué no se puede guardar?</summary><p>Inflamables, explosivos, alimentos perecederos sin cadena de frío, animales, plantas y cualquier bien de origen ilícito. El detalle está en el contrato.</p></details>
+        <details><summary>¿Cómo se ajustan los precios?</summary><p>Por el índice indicado en el contrato, con la frecuencia que ahí se fija. Siempre con aviso previo.</p></details>
+      </div>
+      <div>
+        <details><summary>¿Puedo cambiar de unidad si crezco?</summary><p>Sí, en cualquier momento y sin costo. Es lo que más valoran las tiendas que empiezan en 5 m² y en un año están en 20.</p></details>
+        <details><summary>¿Reciben mercadería si no estoy?</summary><p>Sí. Recibimos envíos de proveedores y correos en tu nombre, los guardamos en tu unidad o en recepción y te avisamos por WhatsApp.</p></details>
+        <details><summary>¿Está asegurado lo que guardo?</summary><p>El edificio tiene seguro de responsabilidad civil. Para el contenido de tu unidad ofrecemos un seguro opcional por valor declarado.</p></details>
+        <details><summary>¿Puedo usar la dirección como domicilio fiscal?</summary><p>Sí, tanto para unidades como para oficinas. Te entregamos la documentación necesaria para el trámite.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="wrap contacto-grid">
+    <div>
+      <h2>Reservá con precio de preventa</h2>
+      <p>Contanos qué necesitás guardar y te respondemos el mismo día con la unidad recomendada y el precio. Si preferís, coordinamos una visita al edificio.</p>
+      <div class="dir">
+        <b>Dirección del galpón</b>
+        Cisneros esq. Av. de Mayo, Ramos Mejía, La Matanza
+        <b style="margin-top:12px">WhatsApp</b>
+        +54 9 11 0000-0000
+        <b style="margin-top:12px">Correo</b>
+        hola@fullspace.com.ar
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault();alert('Gracias, te escribimos hoy mismo.')">
+      <label for="nombre">Nombre</label><input id="nombre" required>
+      <label for="tel">WhatsApp</label><input id="tel" type="tel" required>
+      <label for="uso">Qué vas a guardar</label>
+      <select id="uso"><option>Stock de mi tienda online</option><option>Mercadería de mi empresa</option><option>Cosas personales / mudanza</option><option>Todavía no sé</option></select>
+      <label for="msg">Comentarios</label><textarea id="msg" placeholder="Cantidad aproximada, si necesitás oficina, fulfillment, etc."></textarea>
+      <button class="btn" type="submit">Pedir cotización</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 FULLSPACE depósitos y fulfillment. El espacio justo. 24/7.</div>
+    <div><a href="#precios">Precios</a> · <a href="#faq">Preguntas</a> · <a href="#contacto">Contacto</a></div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5491100000000" aria-label="Escribir por WhatsApp">WhatsApp</a>
+
+<script>
+  // Precios de referencia por m²/mes, sin IVA. Ajustar según relevamiento local.
+  const TARIFA = { pb: 34000, alto: 24000 };
+  const CABEN = {
+    2:  'Cabe lo de un placard grande: cajas, valijas, una bici, ropa de temporada.',
+    5:  'Cabe el stock de una tienda chica o el contenido de un monoambiente.',
+    10: 'Cabe el stock de una tienda con envíos diarios o los muebles de un departamento de 2 ambientes.',
+    20: 'Cabe stock en pallets, archivo de una empresa o una mudanza completa.'
+  };
+  const fmt = n => '$' + Math.round(n).toLocaleString('es-AR');
+  let m2 = 5;
+
+  function calcular(){
+    const nivel = document.getElementById('nivel').value;
+    const plazo = +document.getElementById('plazo').value;
+    const lista = m2 * TARIFA[nivel];
+    const mesesOff = plazo === 1 ? 0 : plazo / 2;
+    const promo = mesesOff ? lista / 2 : lista;
+    document.getElementById('lista').textContent = mesesOff ? 'Lista ' + fmt(lista) : '';
+    document.getElementById('precio').textContent = fmt(promo);
+    document.getElementById('nota').textContent = mesesOff
+      ? `durante ${mesesOff} ${mesesOff===1?'mes':'meses'}, luego ${fmt(lista)}/mes`
+      : 'sin permanencia mínima';
+    document.getElementById('caben').textContent = CABEN[m2];
+  }
+  document.querySelectorAll('.cel').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.cel').forEach(x => x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true'); m2 = +b.dataset.m2; calcular();
+  }));
+  ['nivel','plazo'].forEach(id => document.getElementById(id).addEventListener('change', calcular));
+  calcular();
+
+  // Tabla de precios
+  const filas = [2,5,10,20].map(m => `<tr><td><b>${m} m²</b></td><td>${fmt(m*TARIFA.pb)}</td><td><b>${fmt(m*TARIFA.alto)}</b></td><td>${fmt(m*TARIFA.alto/2)}<s>los primeros 2 meses</s></td></tr>`).join('');
+  document.getElementById('tabla-precios').innerHTML = filas;
+</script>
+</body>
+</html>
