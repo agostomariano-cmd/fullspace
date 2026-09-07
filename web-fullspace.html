@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FULLSPACE — El espacio justo. 24/7.</title>
+<meta name="description" content="Mini-depósitos desde 2 m², acceso 24 hs, carga y descarga con camión, oficinas, estudio de fotos y fulfillment. Contratos mensuales, sin garantía.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --concreto:#FFFFFF;
+    --concreto-2:#F1F1EE;
+    --linea:#DCD9D1;
+    --chapa:#243240;
+    --chapa-2:#1B2631;
+    --amarillo:#F2C41C;
+    --acero:#7C8791;
+    --tinta:#20262C;
+    --blanco:#FAFAF8;
+    --ok:#3E8E5A;
+    --radius:4px;
+    --max:1180px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto} *{transition:none!important;animation:none!important}}
+  body{font-family:'Archivo',system-ui,sans-serif;font-variation-settings:'wdth' 100;background:var(--concreto);color:var(--tinta);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  h1,h2,h3{line-height:1.05;font-weight:800;font-variation-settings:'wdth' 112;letter-spacing:-.01em}
+  h1{font-size:clamp(2.4rem,6vw,4.6rem)}
+  h2{font-size:clamp(1.8rem,3.6vw,2.8rem);margin-bottom:.6em}
+  h3{font-size:1.25rem;font-variation-settings:'wdth' 105}
+  p{max-width:62ch}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(16px,4vw,40px)}
+  section{padding:clamp(56px,8vw,110px) 0}
+
+  /* cinta de señalización — el elemento memorable */
+  .cinta{height:14px;background:repeating-linear-gradient(135deg,var(--amarillo) 0 22px,var(--tinta) 22px 44px)}
+
+  /* header */
+  header{position:sticky;top:0;z-index:20;background:var(--chapa);border-bottom:3px solid var(--amarillo);color:var(--blanco)}
+  header .logo,header .nav ul a{color:var(--blanco)}
+  header .btn.ghost{color:var(--blanco);border-color:var(--blanco)}
+  header .btn.ghost:hover{background:rgba(255,255,255,.12)}
+  .nav-actions{display:flex;gap:10px}
+  .nav-actions .btn{white-space:nowrap}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:20px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:1.35rem;font-variation-settings:'wdth' 125;letter-spacing:.04em;text-decoration:none}
+  .logo svg{width:52px;height:34px}
+  .nav ul{display:flex;gap:26px;list-style:none;font-size:.95rem;font-weight:600}
+  .nav ul a{text-decoration:none}
+  .nav ul a:hover{text-decoration:underline;text-underline-offset:4px}
+  .btn{display:inline-flex;align-items:center;gap:8px;background:var(--tinta);color:var(--blanco);padding:12px 20px;border-radius:var(--radius);font-weight:700;text-decoration:none;border:2px solid var(--tinta);cursor:pointer;font-size:1rem;font-family:inherit}
+  .btn:hover{background:var(--chapa)}
+  .btn.amarillo{background:var(--amarillo);color:var(--tinta);border-color:var(--tinta)}
+  .btn.amarillo:hover{background:#ffd43a}
+  .btn.ghost{background:transparent;color:var(--tinta)}
+  .btn.ghost:hover{background:var(--concreto-2)}
+  .btn:focus-visible,a:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid var(--amarillo);outline-offset:2px}
+  @media(max-width:560px){.nav-actions .btn{padding:10px 12px;font-size:.9rem}}
+
+  /* hero */
+  .hero{padding:clamp(48px,7vw,96px) 0 clamp(40px,6vw,80px)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr}}
+  .hero p.lead{font-size:1.2rem;margin:22px 0 30px;max-width:48ch;color:#3a434c}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .hero-actions small{display:block;width:100%;margin-top:10px;color:var(--acero);font-size:.9rem}
+
+  /* calculadora / selector */
+  .calc{background:var(--blanco);border:2px solid var(--tinta);border-radius:var(--radius);padding:22px;box-shadow:8px 8px 0 var(--tinta)}
+  .calc h3{margin-bottom:4px}
+  .calc .sub{font-size:.9rem;color:var(--acero);margin-bottom:16px}
+  .grid-plan{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+  .cel{border:2px solid var(--tinta);border-radius:var(--radius);background:var(--concreto-2);cursor:pointer;font-family:inherit;padding:10px 6px;text-align:center;transition:background .15s}
+  .cel b{display:block;font-size:1.3rem;font-weight:900;line-height:1}
+  .cel span{font-size:.78rem;color:#3a434c;display:block;margin-top:4px}
+  .cel[aria-pressed="true"]{background:var(--amarillo)}
+  .cel:hover{background:#f7e28a}
+  .calc label{font-size:.85rem;font-weight:700;display:block;margin:12px 0 6px}
+  .calc select{width:100%;padding:10px;border:2px solid var(--tinta);border-radius:var(--radius);font-family:inherit;font-size:1rem;background:var(--blanco)}
+  .resultado{margin-top:18px;padding-top:16px;border-top:2px dashed var(--linea);display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+  .resultado .precio{font-size:2.1rem;font-weight:900;line-height:1;font-variation-settings:'wdth' 112}
+  .resultado .precio s{font-size:1rem;color:var(--acero);font-weight:500;display:block;margin-bottom:4px}
+  .resultado .nota{font-size:.8rem;color:var(--acero);max-width:24ch}
+  .caben{font-size:.9rem;margin-top:10px;color:#3a434c;min-height:2.6em}
+
+  /* franja de datos */
+  .datos{background:var(--chapa);color:var(--blanco);padding:22px 0}
+  .datos .wrap{display:flex;gap:clamp(20px,4vw,56px);flex-wrap:wrap;justify-content:space-between}
+  .datos div{display:flex;align-items:baseline;gap:8px}
+  .datos b{font-size:1.6rem;font-weight:900;color:var(--amarillo)}
+  .datos span{font-size:.92rem;color:#c8cfd6}
+
+  /* para quién */
+  .seg{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--tinta);border-radius:var(--radius);overflow:hidden;background:var(--blanco)}
+  .seg article{padding:28px;border-right:2px solid var(--tinta);display:flex;flex-direction:column;align-items:center;text-align:center}
+  .seg article p{max-width:100%}
+  .seg ul{width:100%;text-align:left}
+  .seg article .btn{margin-top:auto;align-self:center}
+  .seg article:last-child{border-right:0}
+  .seg article h3{margin-bottom:8px}
+  .seg .tam{font-weight:700;color:var(--acero);font-size:.9rem;margin-bottom:12px}
+  .seg ul{list-style:none;margin:14px 0 18px;font-size:.95rem}
+  .seg li{padding:5px 0 5px 20px;position:relative}
+  .seg li::before{content:"";position:absolute;left:0;top:11px;width:10px;height:10px;background:var(--amarillo);border:2px solid var(--tinta)}
+  @media(max-width:900px){.seg{grid-template-columns:1fr}.seg article{border-right:0;border-bottom:2px solid var(--tinta)}.seg article:last-child{border-bottom:0}}
+
+  /* incluye */
+  .incluye{background:var(--concreto-2)}
+  .lista-inc{display:grid;grid-template-columns:repeat(3,1fr);gap:28px 40px;margin-top:10px}
+  .lista-inc div{border-top:3px solid var(--tinta);padding-top:14px}
+  .lista-inc h3{font-size:1.05rem;margin-bottom:6px}
+  .lista-inc p{font-size:.95rem;color:#3a434c}
+  @media(max-width:900px){.lista-inc{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.lista-inc{grid-template-columns:1fr}}
+
+  /* edificio */
+  .edificio-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,70px);align-items:center}
+  @media(max-width:900px){.edificio-grid{grid-template-columns:1fr}}
+  .edificio svg{width:100%;height:auto;display:block}
+  .niveles{display:flex;flex-direction:column-reverse;gap:6px}
+  .nivel{display:grid;grid-template-columns:70px 1fr;align-items:stretch;gap:10px}
+  .nivel .tag{background:var(--tinta);color:var(--amarillo);font-weight:900;display:flex;align-items:center;justify-content:center;border-radius:var(--radius);font-variation-settings:'wdth' 118}
+  .nivel .barra{background:var(--blanco);border:2px solid var(--tinta);border-radius:var(--radius);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  .nivel .barra b{font-size:1.05rem}
+  .nivel .barra span{font-size:.88rem;color:#3a434c}
+  .nivel.pb .barra{background:var(--amarillo)}
+
+  /* precios */
+  table{width:100%;border-collapse:collapse;background:var(--blanco);border:2px solid var(--tinta);font-size:1rem}
+  th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--linea)}
+  th{background:var(--tinta);color:var(--blanco);font-weight:700;font-size:.9rem}
+  th.rec{background:var(--amarillo);color:var(--tinta)}
+  td b{font-weight:800}
+  td s{color:var(--acero);font-weight:400;font-size:.85rem;display:block}
+  tbody tr:last-child td{border-bottom:0}
+  .tabla-wrap{overflow-x:auto;margin-top:8px}
+  .precios p.nota{font-size:.85rem;color:var(--acero);margin-top:12px}
+  .promo{display:inline-block;background:var(--amarillo);border:2px solid var(--tinta);padding:6px 12px;font-weight:800;border-radius:var(--radius);margin-bottom:16px}
+
+  /* fulfillment */
+  .ful{background:var(--chapa);color:var(--blanco)}
+  .ful h2{color:var(--blanco)}
+  .ful p{color:#c8cfd6}
+  .ful-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,70px)}
+  @media(max-width:900px){.ful-grid{grid-template-columns:1fr}}
+  .pasos{list-style:none;counter-reset:p;margin-top:8px}
+  .pasos li{counter-increment:p;display:grid;grid-template-columns:44px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid #3a4a5a;align-items:start}
+  .pasos li::before{content:counter(p);background:var(--amarillo);color:var(--tinta);font-weight:900;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius)}
+  .pasos b{display:block;color:var(--blanco)}
+  .pasos span{font-size:.92rem;color:#c8cfd6}
+  .integ{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .integ span{border:1px solid #5a6a7a;padding:8px 12px;border-radius:999px;font-size:.85rem;color:#e6eaee;min-width:150px;text-align:center}
+
+  /* faq */
+  details{border-bottom:2px solid var(--tinta);padding:16px 0}
+  summary{cursor:pointer;font-weight:700;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:12px}
+  summary::after{content:"+";font-weight:900;font-size:1.3rem;color:var(--acero)}
+  details[open] summary::after{content:"–"}
+  details p{margin-top:10px;color:#3a434c}
+  .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+  @media(max-width:900px){.faq-grid{grid-template-columns:1fr}}
+
+  .inversores{background:var(--chapa);color:var(--blanco);text-align:center}
+  .inversores h2{color:var(--blanco)}
+  .inversores .lead-inv{color:#c8cfd6;max-width:60ch;margin:0 auto 26px;font-size:1.1rem}
+
+  /* contacto */
+  .contacto{background:var(--amarillo)}
+  .contacto-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,70px);align-items:start}
+  @media(max-width:900px){.contacto-grid{grid-template-columns:1fr}}
+  form{background:var(--blanco);border:2px solid var(--tinta);border-radius:var(--radius);padding:24px;box-shadow:8px 8px 0 var(--tinta)}
+  form label{display:block;font-size:.85rem;font-weight:700;margin:12px 0 6px}
+  form input,form select,form textarea{width:100%;padding:11px;border:2px solid var(--tinta);border-radius:var(--radius);font-family:inherit;font-size:1rem;background:var(--blanco)}
+  form textarea{min-height:90px;resize:vertical}
+  form .btn{margin-top:18px;width:100%;justify-content:center}
+  .dir{margin-top:22px;font-size:1rem}
+  .dir b{display:block}
+
+  /* portal socios */
+  .overlay{position:fixed;inset:0;background:rgba(32,38,44,.55);z-index:40;display:none;align-items:flex-start;justify-content:center;padding:32px 16px;overflow:auto}
+  .overlay.abierto{display:flex}
+  .panel{background:var(--blanco);border:2px solid var(--tinta);border-radius:var(--radius);width:100%;max-width:1040px;box-shadow:10px 10px 0 var(--tinta)}
+  .panel-head{background:var(--chapa);color:var(--blanco);padding:16px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .panel-head b{font-size:1.15rem;font-variation-settings:'wdth' 112}
+  .panel-head span{font-size:.9rem;color:#c8cfd6}
+  .panel-body{padding:22px}
+  .login{max-width:420px;margin:0 auto}
+  .login label{display:block;font-size:.85rem;font-weight:700;margin:12px 0 6px}
+  .login input{width:100%;padding:11px;border:2px solid var(--tinta);border-radius:var(--radius);font-family:inherit;font-size:1rem}
+  .login .btn{width:100%;justify-content:center;margin-top:18px}
+  .login .err{color:#b3261e;font-size:.9rem;margin-top:10px;min-height:1.3em}
+  .demo{margin-top:22px;background:var(--concreto-2);border:1px dashed var(--acero);padding:12px 14px;font-size:.85rem}
+  .demo code{background:var(--blanco);padding:1px 6px;border:1px solid var(--linea)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px}
+  .kpi{border:2px solid var(--tinta);padding:14px;border-radius:var(--radius)}
+  .kpi b{display:block;font-size:1.7rem;font-weight:900;line-height:1.1;font-variation-settings:'wdth' 112}
+  .kpi span{font-size:.82rem;color:#3a434c}
+  .kpi.alerta{background:var(--amarillo)}
+  .kpi.ok b{color:var(--ok)}
+  .kpi.mal b{color:#b3261e}
+  .dos{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:820px){.dos{grid-template-columns:1fr}}
+  .bloque h3{font-size:1.05rem;margin-bottom:10px;padding-bottom:6px;border-bottom:3px solid var(--tinta)}
+  .mini{width:100%;border-collapse:collapse;font-size:.9rem;border:0}
+  .mini th,.mini td{padding:8px 10px;border-bottom:1px solid var(--linea)}
+  .mini th{background:transparent;color:var(--acero);font-size:.75rem;letter-spacing:.04em;text-align:left}
+  .mini td.num,.mini th.num{text-align:right;font-variant-numeric:tabular-nums}
+  .pill{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.78rem;font-weight:700;border:2px solid var(--tinta)}
+  .pill.ok{background:#dff1e5}.pill.mal{background:#f9d7d3}.pill.pend{background:var(--amarillo)}
+  .ficha{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 22px;margin-bottom:22px}
+  .ficha div{border-bottom:1px solid var(--linea);padding:8px 0}
+  .ficha small{display:block;color:var(--acero);font-size:.78rem}
+  .ficha b{font-size:1.02rem}
+  .barra-piso{display:grid;grid-template-columns:44px 1fr 110px;align-items:center;gap:10px;margin:8px 0;font-size:.88rem}
+  .barra-piso .track{height:18px;background:var(--concreto-2);border:2px solid var(--tinta);position:relative}
+  .barra-piso .fill{position:absolute;inset:0;background:var(--amarillo);border-right:2px solid var(--tinta)}
+  .barra-piso .num{text-align:right;font-variant-numeric:tabular-nums}
+  .panel-foot{padding:12px 22px;border-top:2px solid var(--tinta);display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:var(--acero);flex-wrap:wrap;gap:10px}
+
+  footer{background:var(--tinta);color:#c8cfd6;padding:36px 0;font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+  footer a{color:var(--blanco)}
+
+  .wa{position:fixed;right:18px;bottom:18px;z-index:30;background:#25D366;color:#fff;border:2px solid var(--tinta);border-radius:999px;padding:12px 18px;font-weight:800;text-decoration:none;box-shadow:4px 4px 0 var(--tinta);display:flex;gap:8px;align-items:center}
+</style>
+</head>
+<body>
+
+<div class="cinta" aria-hidden="true"></div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="#top" aria-label="FULLSPACE inicio">
+      <svg viewBox="0 0 66 44" aria-hidden="true"><rect x="0" y="0" width="18" height="18" fill="#F2C41C"/><rect x="24" y="1.5" width="15" height="15" fill="none" stroke="#FAFAF8" stroke-width="3"/><rect x="48" y="1.5" width="15" height="15" fill="none" stroke="#FAFAF8" stroke-width="3"/><rect x="1.5" y="25.5" width="15" height="15" fill="none" stroke="#FAFAF8" stroke-width="3"/><rect x="24" y="25.5" width="15" height="15" fill="none" stroke="#FAFAF8" stroke-width="3"/><rect x="48" y="25.5" width="15" height="15" fill="none" stroke="#FAFAF8" stroke-width="3"/></svg>
+      FULLSPACE
+    </a>
+
+    <div class="nav-actions"><button class="btn ghost" type="button" id="btn-socios">Ingreso socios</button><a class="btn amarillo" href="#contacto">Reservar visita</a></div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>El espacio justo. 24/7.</h1>
+      <p class="lead">Tu stock, tu oficina y tus envíos en un mismo edificio. Mini-depósitos desde 2 m² con acceso las 24 horas, dársena para camiones, oficinas, estudio de fotos y fulfillment. Contrato mes a mes, sin garantía ni expensas.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#contacto">Pedir cotización por WhatsApp</a>
+        <a class="btn ghost" href="#edificio">Ver el edificio</a>
+        <small>Ramos Mejía, a 10 minutos de General Paz. Apertura de planta baja y 1° piso: primer trimestre 2027. Reservá con precio de preventa.</small>
+      </div>
+    </div>
+
+    <div class="calc" aria-labelledby="calc-t">
+      <h3 id="calc-t">¿Cuánto espacio necesitás?</h3>
+      <p class="sub">Elegí un tamaño y un nivel. Los precios son de referencia, sin IVA.</p>
+      <div class="grid-plan" role="group" aria-label="Tamaño del depósito">
+        <button class="cel" data-m2="2" aria-pressed="false"><b>2</b><span>m²</span></button>
+        <button class="cel" data-m2="5" aria-pressed="true"><b>5</b><span>m²</span></button>
+        <button class="cel" data-m2="10" aria-pressed="false"><b>10</b><span>m²</span></button>
+        <button class="cel" data-m2="20" aria-pressed="false"><b>20</b><span>m²</span></button>
+      </div>
+      <label for="nivel">Nivel</label>
+      <select id="nivel">
+        <option value="pb">Planta baja — acceso directo con vehículo</option>
+        <option value="alto" selected>Pisos altos — con montacargas</option>
+      </select>
+      <label for="plazo">Permanencia</label>
+      <select id="plazo">
+        <option value="1">Mes a mes</option>
+        <option value="2">2 meses — 50 % off el primero</option>
+        <option value="4" selected>4 meses — 50 % off los primeros 2</option>
+        <option value="8">8 meses — 50 % off los primeros 4</option>
+      </select>
+      <div class="resultado">
+        <div class="precio"><s id="lista"></s><span id="precio"></span><small style="font-size:.9rem;font-weight:500;color:var(--acero)"> /mes</small></div>
+        <div class="nota" id="nota"></div>
+      </div>
+      <div class="caben" id="caben"></div>
+    </div>
+  </div>
+</section>
+
+<div class="datos">
+  <div class="wrap">
+    <div style="flex-basis:100%;font-weight:900;font-size:1.35rem;color:var(--amarillo);font-variation-settings:'wdth' 112;margin-bottom:6px">Ni un metro de más. Ni una hora de menos.</div>
+    <div><b>2.100</b><span>m² en cuatro niveles</span></div>
+    <div><b>24 hs</b><span>acceso, 365 días</span></div>
+    <div><b>2 – 60 m²</b><span>unidades privadas</span></div>
+    <div><b>0</b><span>garantía, expensas o comisión</span></div>
+  </div>
+</div>
+
+<section id="para-quien">
+  <div class="wrap">
+    <h2>Un depósito para cada tipo de cliente</h2>
+    <p style="margin-bottom:28px">Vendas por internet, tengas una pyme con stock o simplemente te falte lugar en casa: hay una unidad del tamaño justo y podés cambiarla cuando crezcas.</p>
+    <div class="seg">
+      <article>
+        <h3>Vendés online</h3>
+        <div class="tam">Unidades de 5 a 20 m²</div>
+        <p>Guardá el stock, armá los pedidos en la mesa de packing y despachá con el correo que quieras sin salir del edificio.</p>
+        <ul>
+          <li>Recepción de proveedores en tu nombre</li>
+          <li>Retiro de correos y couriers en el lugar</li>
+          <li>Estudio de fotos para el catálogo</li>
+          <li>Opción de fulfillment tercerizado</li>
+        </ul>
+        <a class="btn ghost" href="#contacto">Cotizar para mi tienda</a>
+      </article>
+      <article>
+        <h3>Tenés una empresa</h3>
+        <div class="tam">Unidades de 20 a 60 m² y combinables</div>
+        <p>Ampliá la capacidad de stock o archivá documentación sin firmar un contrato de tres años por un galpón entero.</p>
+        <ul>
+          <li>Dársena para camiones y contenedores</li>
+          <li>Pallets, zorras y montacargas</li>
+          <li>Domicilio fiscal y recepción de correspondencia</li>
+          <li>Oficina privada en el mismo edificio</li>
+        </ul>
+        <a class="btn ghost" href="#contacto">Cotizar para mi empresa</a>
+      </article>
+      <article>
+        <h3>Te falta lugar en casa</h3>
+        <div class="tam">Bauleras de 2 a 10 m²</div>
+        <p>Mudanza, reforma, cosas de temporada, herramientas, la colección que ya no entra. Entrás cuando quieras, con tu llave.</p>
+        <ul>
+          <li>Desde 2 m² (lo que ocupa un placard grande)</li>
+          <li>Candado propio o cerradura con código</li>
+          <li>Carritos y zorras sin cargo</li>
+          <li>Seguro opcional sobre el contenido</li>
+        </ul>
+        <a class="btn ghost" href="#contacto">Cotizar una baulera</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="incluye" id="incluye">
+  <div class="wrap">
+    <h2>Qué incluye tu unidad</h2>
+    <p style="margin-bottom:28px">Todo lo que sigue está dentro del precio mensual. Sin sorpresas en la factura.</p>
+    <div class="lista-inc">
+      <div><h3>Acceso 24 horas</h3><p>Todos los días del año, con control de acceso por código o tarjeta. Sin límite de visitas ni tiempo de permanencia.</p></div>
+      <div><h3>Seguridad permanente</h3><p>CCTV interno y externo, sensores de movimiento en pasillos, alarma y cerraduras individuales. Solo vos y tus autorizados entran a tu unidad.</p></div>
+      <div><h3>Carga y descarga</h3><p>Playa de maniobra con acceso a la red de tránsito pesado. Camiones, camionetas y contenedores descargan al lado de la puerta.</p></div>
+      <div><h3>Montacargas y equipos</h3><p>Montacargas a todos los pisos, zorras, carritos y pallets disponibles sin cargo.</p></div>
+      <div><h3>Recepción de mercadería</h3><p>Recibimos envíos de tus proveedores y correos en tu nombre y te avisamos por WhatsApp.</p></div>
+      <div><h3>Domicilio comercial</h3><p>Podés fijar tu domicilio fiscal en tu unidad u oficina. Guardamos la correspondencia hasta que pasás.</p></div>
+      <div><h3>Contrato flexible</h3><p>Mes a mes, ampliás o reducís la unidad cuando lo necesites. Sin garantía, sin expensas, sin comisión.</p></div>
+      <div><h3>Cowork y salas</h3><p>Puestos de trabajo, wifi, cocina y sala de reuniones para recibir clientes o proveedores.</p></div>
+      <div><h3>Estudio de fotos y streaming</h3><p>Espacio equipado con fondos e iluminación para fotografiar productos y grabar contenido.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="edificio">
+  <div class="wrap edificio-grid">
+    <div>
+      <h2>Cuatro niveles, cada uno pensado para un uso</h2>
+      <p>Las unidades grandes y la operación de carga van en planta baja, con acceso directo de vehículos. Los pisos altos concentran los mini-depósitos y las bauleras, atendidos por montacargas, y suman oficinas, cowork y el estudio.</p>
+      <p style="margin-top:14px">Edificio propio en la esquina de Cisneros y Av. de Mayo, Ramos Mejía: el primer centro de mini-depósitos de la zona oeste. Sin intermediarios, precios más bajos que la competencia y contratos más simples.</p>
+      <a class="btn" href="#contacto" style="margin-top:24px">Coordinar una visita</a>
+    </div>
+    <div class="edificio" aria-label="Distribución por nivel">
+      <svg viewBox="0 0 620 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="ed-t">
+        <title id="ed-t">Edificio de cuatro niveles: PB con portón para camiones, tres pisos de depósitos</title>
+        <defs>
+          <pattern id="cinta" width="16" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#F2C41C"/><rect x="8" width="8" height="8" fill="#20262C"/></pattern>
+        </defs>
+        <!-- vereda y calle -->
+        <rect x="0" y="518" width="620" height="14" fill="#DCD9D1"/>
+        <rect x="0" y="532" width="620" height="28" fill="#7C8791"/>
+        <line x1="0" y1="546" x2="620" y2="546" stroke="#FAFAF8" stroke-width="2" stroke-dasharray="18 12"/>
+        <!-- techo abovedado -->
+        <path d="M70 134 Q310 -40 550 134 Z" fill="#243240" stroke="#20262C" stroke-width="4"/>
+        <path d="M70 134 Q310 -40 550 134" fill="none" stroke="#7C8791" stroke-width="2" stroke-dasharray="4 6"/>
+        <text x="310" y="92" font-family="Archivo" font-weight="900" font-size="30" fill="#FAFAF8" text-anchor="middle" letter-spacing="1">FULLSPACE</text>
+        <text x="310" y="118" font-family="Archivo" font-weight="700" font-size="14" fill="#F2C41C" text-anchor="middle" letter-spacing="3">EL ESPACIO JUSTO. 24/7.</text>
+        <!-- cuerpo -->
+        <rect x="70" y="134" width="480" height="384" fill="#FAFAF8" stroke="#20262C" stroke-width="4"/>
+        <!-- losas -->
+        <rect x="66" y="226" width="488" height="8" fill="#20262C"/>
+        <rect x="66" y="318" width="488" height="8" fill="#20262C"/>
+        <rect x="66" y="410" width="488" height="8" fill="#20262C"/>
+        <!-- portón de camiones en PB, lado derecho -->
+        <rect x="392" y="436" width="140" height="82" fill="#243240" stroke="#20262C" stroke-width="3"/>
+        <g stroke="#7C8791" stroke-width="2"><line x1="392" y1="454" x2="532" y2="454"/><line x1="392" y1="472" x2="532" y2="472"/><line x1="392" y1="490" x2="532" y2="490"/><line x1="392" y1="508" x2="532" y2="508"/></g>
+        <rect x="392" y="426" width="140" height="10" fill="url(#cinta)"/>
+        <!-- puerta peatonal 24 hs -->
+        <rect x="346" y="462" width="30" height="56" fill="#F2C41C" stroke="#20262C" stroke-width="3"/>
+        <text x="361" y="496" font-family="Archivo" font-weight="900" font-size="11" fill="#20262C" text-anchor="middle">24</text>
+        <!-- etiquetas de nivel, todas en la misma columna -->
+        <g font-family="Archivo" fill="#20262C">
+          <rect x="96" y="150" width="36" height="28" fill="#20262C"/><text x="114" y="170" font-weight="900" font-size="14" fill="#F2C41C" text-anchor="middle">3°</text>
+          <text x="144" y="168" font-weight="800" font-size="17">465 m²</text>
+          <text x="144" y="188" font-size="12" fill="#3a434c">Bauleras 2–10 m², estudio de fotos</text>
+          <text x="144" y="204" font-size="12" fill="#3a434c">y streaming, archivo</text>
+
+          <rect x="96" y="242" width="36" height="28" fill="#20262C"/><text x="114" y="262" font-weight="900" font-size="14" fill="#F2C41C" text-anchor="middle">2°</text>
+          <text x="144" y="260" font-weight="800" font-size="17">465 m²</text>
+          <text x="144" y="280" font-size="12" fill="#3a434c">Bauleras 2–10 m², oficinas privadas,</text>
+          <text x="144" y="296" font-size="12" fill="#3a434c">cowork y sala de reuniones</text>
+
+          <rect x="96" y="334" width="36" height="28" fill="#20262C"/><text x="114" y="354" font-weight="900" font-size="14" fill="#F2C41C" text-anchor="middle">1°</text>
+          <text x="144" y="352" font-weight="800" font-size="17">465 m²</text>
+          <text x="144" y="372" font-size="12" fill="#3a434c">Mini-depósitos e-commerce 5–20 m²,</text>
+          <text x="144" y="388" font-size="12" fill="#3a434c">mesas de packing</text>
+
+          <rect x="96" y="428" width="36" height="28" fill="#F2C41C" stroke="#20262C" stroke-width="2"/><text x="114" y="448" font-weight="900" font-size="14" text-anchor="middle">PB</text>
+          <text x="144" y="446" font-weight="800" font-size="17">715 m²</text>
+          <text x="144" y="466" font-size="12" fill="#3a434c">Dársena de carga, unidades</text>
+          <text x="144" y="482" font-size="12" fill="#3a434c">20–60 m², recepción</text>
+          <text x="144" y="498" font-size="12" fill="#3a434c">y fulfillment</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="precios" id="precios">
+  <div class="wrap">
+    <h2>Precios claros</h2>
+    <div class="promo">Preventa: 50 % off en los primeros meses según permanencia</div>
+    <div class="tabla-wrap">
+      <table>
+        <thead>
+          <tr><th>Unidad</th><th>Planta baja</th><th class="rec">Pisos altos — recomendado</th><th>Con 4 meses de permanencia</th></tr>
+        </thead>
+        <tbody id="tabla-precios"></tbody>
+      </table>
+    </div>
+    <p class="nota">A más metros, menor costo por metro: la tarifa baja de $30.000 a $21.000 por m² entre 2 y 20 m². Valores mensuales en pesos, sin IVA, de referencia para el lanzamiento. Las unidades de más de 20 m² y las combinaciones se cotizan por WhatsApp. Ajuste periódico por índice publicado en el contrato.</p>
+  </div>
+</section>
+
+<section class="ful" id="fulfillment">
+  <div class="wrap ful-grid">
+    <div>
+      <h2>Guardá, armá, despachá. 24/7.</h2>
+      <p style="margin-bottom:14px"><b style="color:var(--amarillo)">Armado de pedido de hasta 3 productos: $1.500 + IVA.</b> Ingreso de mercadería $600 por unidad o caja. Si preparás vos, pagás la mitad. Envío flex el mismo día a CABA y GBA con operador aliado.</p>
+      <p>Si tu tienda ya mueve pedidos todos los días, podés delegarnos la operación completa: los pedidos entran solos desde tu tienda, nosotros los armamos, etiquetamos y despachamos con el correo que corresponda.</p>
+      <p style="margin-top:14px">Escalás sin contratar gente ni alquilar un depósito propio, y seguís viendo el stock en tiempo real.</p>
+      <div class="integ" aria-label="Integraciones">
+        <span>Tienda Nube</span><span>Mercado Libre</span><span>Shopify</span><span>WooCommerce</span><span>Envío Pack</span><span>Andreani</span><span>Correo Argentino</span><span>OCA</span>
+      </div>
+    </div>
+    <ol class="pasos">
+      <li><div><b>Recepción de stock</b><span>Contamos, controlamos y damos de alta la mercadería en el sistema.</span></div></li>
+      <li><div><b>Almacenamiento</b><span>Ubicación por SKU, control de vencimientos y lotes si tus productos lo requieren.</span></div></li>
+      <li><div><b>Picking y packing</b><span>Armado del pedido con tu packaging y tus insertos, sin errores de sustitución.</span></div></li>
+      <li><div><b>Despacho</b><span>Etiqueta, colecta del correo y seguimiento hasta la entrega. Punto de retiro para tus clientes.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <h2>Preguntas frecuentes</h2>
+    <div class="faq-grid">
+      <div>
+        <details><summary>¿Necesito garantía o firmar por un plazo mínimo?</summary><p>No. Se paga el mes por adelantado y podés dar de baja avisando con 15 días. Los descuentos de lanzamiento sí requieren la permanencia elegida.</p></details>
+        <details><summary>¿Puedo entrar de noche o los domingos?</summary><p>Sí. El acceso es las 24 horas, los 365 días, con tu código o tarjeta. Cada ingreso queda registrado.</p></details>
+        <details><summary>¿Qué no se puede guardar?</summary><p>Inflamables, explosivos, alimentos perecederos sin cadena de frío, animales, plantas y cualquier bien de origen ilícito. El detalle está en el contrato.</p></details>
+        <details><summary>¿Cómo se ajustan los precios?</summary><p>Por el índice indicado en el contrato, con la frecuencia que ahí se fija. Siempre con aviso previo.</p></details>
+      </div>
+      <div>
+        <details><summary>¿Puedo cambiar de unidad si crezco?</summary><p>Sí, en cualquier momento y sin costo. Es lo que más valoran las tiendas que empiezan en 5 m² y en un año están en 20.</p></details>
+        <details><summary>¿Reciben mercadería si no estoy?</summary><p>Sí. Recibimos envíos de proveedores y correos en tu nombre, los guardamos en tu unidad o en recepción y te avisamos por WhatsApp.</p></details>
+        <details><summary>¿Está asegurado lo que guardo?</summary><p>El edificio tiene seguro de responsabilidad civil. Para el contenido de tu unidad ofrecemos un seguro opcional por valor declarado.</p></details>
+        <details><summary>¿Puedo usar la dirección como domicilio fiscal?</summary><p>Sí, tanto para unidades como para oficinas. Te entregamos la documentación necesaria para el trámite.</p></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="inversores" id="inversores">
+  <div class="wrap">
+    <h2>Para inversores</h2>
+    <p class="lead-inv">Un edificio propio de 2.100 m² en Ramos Mejía, 156 unidades, ingresos mensuales recurrentes y un margen operativo superior al 50 %. El plan está armado por etapas para empezar a facturar a los seis meses.</p>
+    <a class="btn amarillo" href="plan-de-negocios.html">Conocé nuestro plan de negocios</a>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="wrap contacto-grid">
+    <div>
+      <h2>Reservá con precio de preventa</h2>
+      <p>Contanos qué necesitás guardar y te respondemos el mismo día con la unidad recomendada y el precio. Si preferís, coordinamos una visita al edificio.</p>
+      <div class="dir">
+        <b>Dirección del galpón</b>
+        Cisneros esq. Av. de Mayo, Ramos Mejía, La Matanza
+        <b style="margin-top:12px">WhatsApp</b>
+        +54 9 11 0000-0000
+        <b style="margin-top:12px">Correo</b>
+        hola@fullspace.com.ar
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault();alert('Gracias, te escribimos hoy mismo.')">
+      <label for="nombre">Nombre</label><input id="nombre" required>
+      <label for="tel">WhatsApp</label><input id="tel" type="tel" required>
+      <label for="uso">Qué vas a guardar</label>
+      <select id="uso"><option>Stock de mi tienda online</option><option>Mercadería de mi empresa</option><option>Cosas personales / mudanza</option><option>Todavía no sé</option></select>
+      <label for="msg">Comentarios</label><textarea id="msg" placeholder="Cantidad aproximada, si necesitás oficina, fulfillment, etc."></textarea>
+      <button class="btn" type="submit">Pedir cotización</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="panel-titulo">
+  <div class="panel">
+    <div class="panel-head"><div><b id="panel-titulo">Ingreso socios</b><br><span id="panel-sub">Portal de clientes FULLSPACE</span></div><button class="btn amarillo" type="button" id="btn-cerrar">Cerrar</button></div>
+    <div class="panel-body" id="panel-body"></div>
+    <div class="panel-foot"><span>Datos de demostración. Los importes son en pesos, sin IVA.</span><span id="panel-user"></span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 FULLSPACE depósitos y fulfillment. El espacio justo. 24/7.</div>
+    <div><a href="#precios">Precios</a> · <a href="#faq">Preguntas</a> · <a href="#contacto">Contacto</a></div>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/5491100000000" aria-label="Escribir por WhatsApp">WhatsApp</a>
+
+<script>
+  // Tarifa escalonada: a más metros, menor costo por metro. $/m²/mes sin IVA, pisos altos.
+  const TARIFA_M2 = { 2: 30000, 5: 26500, 10: 24000, 20: 21000 };
+  const FACTOR_PB = 1.4; // planta baja, acceso directo con vehículo
+  const TARIFA = { alto: TARIFA_M2, pb: Object.fromEntries(Object.entries(TARIFA_M2).map(([k,v])=>[k, v*FACTOR_PB])) };
+  const CABEN = {
+    2:  'Cabe lo de un placard grande: cajas, valijas, una bici, ropa de temporada.',
+    5:  'Cabe el stock de una tienda chica o el contenido de un monoambiente.',
+    10: 'Cabe el stock de una tienda con envíos diarios o los muebles de un departamento de 2 ambientes.',
+    20: 'Cabe stock en pallets, archivo de una empresa o una mudanza completa.'
+  };
+  const fmt = n => '$' + Math.round(n).toLocaleString('es-AR');
+  let m2 = 5;
+
+  function calcular(){
+    const nivel = document.getElementById('nivel').value;
+    const plazo = +document.getElementById('plazo').value;
+    const lista = m2 * TARIFA[nivel][m2];
+    const mesesOff = plazo === 1 ? 0 : plazo / 2;
+    const promo = mesesOff ? lista / 2 : lista;
+    document.getElementById('lista').textContent = mesesOff ? 'Lista ' + fmt(lista) : '';
+    document.getElementById('precio').textContent = fmt(promo);
+    document.getElementById('nota').textContent = mesesOff
+      ? `durante ${mesesOff} ${mesesOff===1?'mes':'meses'}, luego ${fmt(lista)}/mes`
+      : 'sin permanencia mínima';
+    document.getElementById('caben').textContent = CABEN[m2] + ' Equivale a ' + fmt(TARIFA[nivel][m2]) + ' por m².';
+  }
+  document.querySelectorAll('.cel').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.cel').forEach(x => x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true'); m2 = +b.dataset.m2; calcular();
+  }));
+  ['nivel','plazo'].forEach(id => document.getElementById(id).addEventListener('change', calcular));
+  calcular();
+
+  // Tabla de precios
+  const filas = [2,5,10,20].map(m => `<tr><td><b>${m} m²</b><s>${fmt(TARIFA.alto[m])} por m²</s></td><td>${fmt(m*TARIFA.pb[m])}</td><td><b>${fmt(m*TARIFA.alto[m])}</b></td><td>${fmt(m*TARIFA.alto[m]/2)}<s>los primeros 2 meses</s></td></tr>`).join('');
+  document.getElementById('tabla-precios').innerHTML = filas;
+</script>
+
+<script>
+  // ---------- Portal socios (demo) ----------
+  const $ = id => document.getElementById(id);
+  const money = n => '$' + Math.round(n).toLocaleString('es-AR');
+  const fecha = d => new Date(d+'T12:00:00').toLocaleDateString('es-AR');
+  const HOY = new Date('2027-09-06T12:00:00');
+
+  const CLIENTES = {
+    nativa: { user:'nativa', pass:'1234', nombre:'Dietética Nativa', razon:'Nativa Alimentos SRL', cuit:'30-71589021-4', tipo:'Tienda online', contacto:'Julieta Ferreyra', tel:'11 5522-8814',
+      unidades:[{id:'1-07',m2:10,piso:'1° piso'},{id:'1-08',m2:10,piso:'1° piso'}], m2:20, inicio:'2027-03-01', fin:'2028-02-29', renovacion:'Automática, ajuste trimestral por IPC',
+      cuota:496000, servicios:['Recepción de proveedores','Fulfillment (armado y despacho)','Domicilio fiscal'], autorizados:['Julieta Ferreyra','Marcos Ferreyra','Sol Acuña (repartos)'],
+      facturas:[{n:'A-0001-00000412',f:'2027-09-01',v:'2027-09-10',imp:1187400,det:'Alquiler 20 m² + fulfillment agosto (471 pedidos)',est:'Pendiente'},{n:'A-0001-00000377',f:'2027-08-01',v:'2027-08-10',imp:1102900,det:'Alquiler 20 m² + fulfillment julio (417 pedidos)',est:'Pagada'},{n:'A-0001-00000341',f:'2027-07-01',v:'2027-07-10',imp:1034600,det:'Alquiler 20 m² + fulfillment junio (372 pedidos)',est:'Pagada'}],
+      ctacte:[{f:'2027-09-01',c:'Factura A-0001-00000412',d:1187400,h:0},{f:'2027-08-09',c:'Transferencia recibida',d:0,h:1102900},{f:'2027-08-01',c:'Factura A-0001-00000377',d:1102900,h:0},{f:'2027-07-08',c:'Transferencia recibida',d:0,h:1034600},{f:'2027-07-01',c:'Factura A-0001-00000341',d:1034600,h:0}],
+      accesos:[{f:'2027-09-06 08:12',q:'Julieta Ferreyra'},{f:'2027-09-05 17:40',q:'Sol Acuña'},{f:'2027-09-05 09:03',q:'Julieta Ferreyra'},{f:'2027-09-04 08:55',q:'Marcos Ferreyra'}],
+      extra:{label:'Pedidos despachados en agosto',val:'471'}, extra2:{label:'Stock en sistema',val:'1.284 unidades / 63 SKU'} },
+    ramos: { user:'ramos', pass:'1234', nombre:'Tornillería Ramos', razon:'Tornillería Ramos SRL', cuit:'30-65498712-9', tipo:'Empresa', contacto:'Gustavo Ramos', tel:'11 4658-2201',
+      unidades:[{id:'PB-03',m2:40,piso:'Planta baja'}], m2:40, inicio:'2027-02-15', fin:'2028-02-14', renovacion:'Automática, ajuste trimestral por IPC',
+      cuota:1360000, servicios:['Dársena de carga','Pallets y zorra','Domicilio fiscal','Oficina privada 2-OF2'], autorizados:['Gustavo Ramos','Daniel Ledesma','Chofer: Transportes Vélez'],
+      facturas:[{n:'A-0001-00000409',f:'2027-09-01',v:'2027-09-10',imp:1590000,det:'Alquiler 40 m² PB + oficina 2-OF2',est:'Pendiente'},{n:'A-0001-00000372',f:'2027-08-01',v:'2027-08-10',imp:1590000,det:'Alquiler 40 m² PB + oficina 2-OF2',est:'Vencida'},{n:'A-0001-00000338',f:'2027-07-01',v:'2027-07-10',imp:1520000,det:'Alquiler 40 m² PB + oficina 2-OF2',est:'Pagada'}],
+      ctacte:[{f:'2027-09-01',c:'Factura A-0001-00000409',d:1590000,h:0},{f:'2027-08-01',c:'Factura A-0001-00000372',d:1590000,h:0},{f:'2027-07-12',c:'Transferencia recibida',d:0,h:1520000},{f:'2027-07-01',c:'Factura A-0001-00000338',d:1520000,h:0}],
+      accesos:[{f:'2027-09-06 07:30',q:'Daniel Ledesma'},{f:'2027-09-05 07:35',q:'Daniel Ledesma'},{f:'2027-09-04 14:10',q:'Transportes Vélez (descarga)'},{f:'2027-09-04 07:31',q:'Daniel Ledesma'}],
+      extra:{label:'Descargas de camión en agosto',val:'6'}, extra2:{label:'Oficina',val:'2-OF2 · 12 m²'} },
+    laura: { user:'laura', pass:'1234', nombre:'Laura Benítez', razon:'Laura Benítez (consumidor final)', cuit:'27-31245678-3', tipo:'Baulera personal', contacto:'Laura Benítez', tel:'11 3099-4471',
+      unidades:[{id:'2-12',m2:5,piso:'2° piso'}], m2:5, inicio:'2027-06-10', fin:'2027-12-09', renovacion:'Mes a mes al vencimiento',
+      cuota:120000, servicios:['Seguro de contenido hasta $3.000.000','Carritos y zorra'], autorizados:['Laura Benítez','Pablo Benítez'],
+      facturas:[{n:'B-0001-00001120',f:'2027-09-01',v:'2027-09-10',imp:132000,det:'Baulera 5 m² + seguro',est:'Pagada'},{n:'B-0001-00001078',f:'2027-08-01',v:'2027-08-10',imp:132000,det:'Baulera 5 m² + seguro',est:'Pagada'},{n:'B-0001-00001033',f:'2027-07-01',v:'2027-07-10',imp:126000,det:'Baulera 5 m² + seguro',est:'Pagada'}],
+      ctacte:[{f:'2027-09-02',c:'Débito automático',d:0,h:132000},{f:'2027-09-01',c:'Factura B-0001-00001120',d:132000,h:0},{f:'2027-08-02',c:'Débito automático',d:0,h:132000},{f:'2027-08-01',c:'Factura B-0001-00001078',d:132000,h:0}],
+      accesos:[{f:'2027-09-03 19:22',q:'Laura Benítez'},{f:'2027-08-21 10:05',q:'Pablo Benítez'},{f:'2027-08-02 18:40',q:'Laura Benítez'}],
+      extra:{label:'Próximo vencimiento de contrato',val:'09/12/2027'}, extra2:{label:'Medio de pago',val:'Débito automático · Visa 4417'} }
+  };
+
+  const ADMIN = { user:'admin', pass:'admin', nombre:'Administración FULLSPACE',
+    pisos:[{p:'PB',uni:18,alq:11,m2:380,m2alq:255},{p:'1°',uni:50,alq:38,m2:341,m2alq:262},{p:'2°',uni:42,alq:29,m2:280,m2alq:196},{p:'3°',uni:46,alq:31,m2:300,m2alq:204}],
+    factMes:24860000, factMesAnt:23110000, cobradoMes:15420000, clientes:104, vencidas:{clientes:7,monto:5830000}, pedidosFul:1912, ingresosHoy:63, nuevosMes:6, bajasMes:2,
+    vencen:[{c:'Tornillería Ramos',u:'PB-03',f:'2028-02-14'},{c:'Laura Benítez',u:'2-12',f:'2027-12-09'},{c:'Mueblería Haedo',u:'PB-07',f:'2027-10-31'},{c:'Sofía Peralta',u:'3-21',f:'2027-10-15'}],
+    morosos:[{c:'Tornillería Ramos',u:'PB-03',imp:1590000,dias:27},{c:'Indumentaria Kala',u:'1-22',imp:372000,dias:41},{c:'Mueblería Haedo',u:'PB-07',imp:1020000,dias:12},{c:'Ortopedia Morón',u:'1-31',imp:496000,dias:19},{c:'Federico Aguirre',u:'3-08',imp:96000,dias:58},{c:'Tienda Lumbre',u:'1-14',imp:248000,dias:8},{c:'Marcela Ibáñez',u:'2-30',imp:120000,dias:33}],
+    accesos:[{c:'Dietética Nativa',u:'1-07/08',d:4.2,hoy:3},{c:'Indumentaria Kala',u:'1-22',d:3.8,hoy:2},{c:'Tienda Lumbre',u:'1-14',d:3.1,hoy:4},{c:'Tornillería Ramos',u:'PB-03',d:2.6,hoy:2},{c:'Ortopedia Morón',u:'1-31',d:2.4,hoy:1},{c:'Mueblería Haedo',u:'PB-07',d:1.9,hoy:0},{c:'Cosmética Ruda',u:'3-02',d:1.7,hoy:2},{c:'Laura Benítez',u:'2-12',d:0.2,hoy:0}] };
+
+  function abrir(){ $('overlay').classList.add('abierto'); vistaLogin(); }
+  function cerrar(){ $('overlay').classList.remove('abierto'); }
+  $('btn-socios').addEventListener('click',abrir);
+  $('btn-cerrar').addEventListener('click',cerrar);
+  $('overlay').addEventListener('click',e=>{ if(e.target===$('overlay')) cerrar(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') cerrar(); });
+
+  function vistaLogin(){
+    $('panel-titulo').textContent='Ingreso socios'; $('panel-sub').textContent='Portal de clientes FULLSPACE'; $('panel-user').textContent='';
+    $('panel-body').innerHTML=`<div class="login">
+      <label for="lu">Usuario</label><input id="lu" autocomplete="username">
+      <label for="lp">Contraseña</label><input id="lp" type="password" autocomplete="current-password">
+      <button class="btn" type="button" id="lgo">Entrar</button>
+      <div class="err" id="lerr"></div>
+      <div class="demo"><b>Usuarios de demostración</b><br>Clientes: <code>nativa</code> · <code>ramos</code> · <code>laura</code> (contraseña <code>1234</code>)<br>Administrador: <code>admin</code> / <code>admin</code></div></div>`;
+    const go=()=>{ const u=$('lu').value.trim().toLowerCase(), p=$('lp').value;
+      if(u===ADMIN.user&&p===ADMIN.pass) return vistaAdmin();
+      if(CLIENTES[u]&&CLIENTES[u].pass===p) return vistaCliente(CLIENTES[u]);
+      $('lerr').textContent='Usuario o contraseña incorrectos.'; };
+    $('lgo').addEventListener('click',go);
+    $('lp').addEventListener('keydown',e=>{ if(e.key==='Enter') go(); });
+    setTimeout(()=>$('lu').focus(),50);
+  }
+
+  function pill(est){ const c=est==='Pagada'?'ok':est==='Vencida'?'mal':'pend'; return `<span class="pill ${c}">${est}</span>`; }
+
+  function vistaCliente(c){
+    const saldo=c.ctacte.reduce((a,m)=>a+m.d-m.h,0);
+    const vencidas=c.facturas.filter(f=>f.est==='Vencida');
+    const estado=vencidas.length?'Con deuda vencida':saldo>0?'Al día, con factura pendiente':'Al día';
+    const dias=Math.round((new Date(c.fin+'T12:00:00')-HOY)/86400000);
+    const ult=c.facturas[0];
+    $('panel-titulo').textContent=c.nombre; $('panel-sub').textContent=c.tipo+' · '+c.unidades.map(u=>u.id).join(' + ')+' · '+c.m2+' m²';
+    $('panel-user').innerHTML=`<button class="btn ghost" type="button" id="salir" style="padding:6px 12px;font-size:.85rem">Salir</button>`;
+    $('panel-body').innerHTML=`
+      <div class="kpis">
+        <div class="kpi"><b>${money(c.cuota)}</b><span>cuota mensual actual</span></div>
+        <div class="kpi"><b>${money(ult.imp)}</b><span>última factura · ${fecha(ult.f)}</span></div>
+        <div class="kpi ${saldo>0?'':'ok'}"><b>${money(saldo)}</b><span>saldo de cuenta corriente</span></div>
+        <div class="kpi ${vencidas.length?'alerta':'ok'}"><b style="font-size:1.15rem">${estado}</b><span>estado de la cuenta</span></div>
+        <div class="kpi"><b>${dias}</b><span>días hasta el fin del contrato</span></div>
+      </div>
+      <div class="bloque"><h3>Contrato</h3></div>
+      <div class="ficha">
+        <div><small>Titular</small><b>${c.razon}</b></div>
+        <div><small>CUIT / CUIL</small><b>${c.cuit}</b></div>
+        <div><small>Unidades</small><b>${c.unidades.map(u=>u.id+' ('+u.m2+' m², '+u.piso+')').join(' · ')}</b></div>
+        <div><small>Inicio</small><b>${fecha(c.inicio)}</b></div>
+        <div><small>Finalización</small><b>${fecha(c.fin)}</b></div>
+        <div><small>Renovación</small><b>${c.renovacion}</b></div>
+        <div><small>Servicios incluidos</small><b>${c.servicios.join(' · ')}</b></div>
+        <div><small>Autorizados a ingresar</small><b>${c.autorizados.join(' · ')}</b></div>
+        <div><small>${c.extra.label}</small><b>${c.extra.val}</b></div>
+        <div><small>${c.extra2.label}</small><b>${c.extra2.val}</b></div>
+        <div><small>Contacto</small><b>${c.contacto} · ${c.tel}</b></div>
+      </div>
+      <div class="dos">
+        <div class="bloque"><h3>Facturas</h3><table class="mini"><thead><tr><th>Nº</th><th>Emisión</th><th>Detalle</th><th class="num">Importe</th><th>Estado</th></tr></thead><tbody>
+          ${c.facturas.map(f=>`<tr><td>${f.n.slice(-5)}</td><td>${fecha(f.f)}</td><td>${f.det}</td><td class="num">${money(f.imp)}</td><td>${pill(f.est)}</td></tr>`).join('')}</tbody></table></div>
+        <div class="bloque"><h3>Cuenta corriente</h3><table class="mini"><thead><tr><th>Fecha</th><th>Concepto</th><th class="num">Debe</th><th class="num">Haber</th></tr></thead><tbody>
+          ${c.ctacte.map(m=>`<tr><td>${fecha(m.f)}</td><td>${m.c}</td><td class="num">${m.d?money(m.d):''}</td><td class="num">${m.h?money(m.h):''}</td></tr>`).join('')}
+          <tr><td></td><td><b>Saldo</b></td><td class="num" colspan="2"><b>${money(saldo)}</b></td></tr></tbody></table></div>
+      </div>
+      <div class="bloque" style="margin-top:22px"><h3>Últimos ingresos al edificio</h3><table class="mini"><thead><tr><th>Fecha y hora</th><th>Quién</th></tr></thead><tbody>
+        ${c.accesos.map(a=>`<tr><td>${a.f}</td><td>${a.q}</td></tr>`).join('')}</tbody></table></div>`;
+    $('salir').addEventListener('click',vistaLogin);
+  }
+
+  function vistaAdmin(){
+    const A=ADMIN, tu=A.pisos.reduce((a,p)=>a+p.uni,0), ta=A.pisos.reduce((a,p)=>a+p.alq,0), tm=A.pisos.reduce((a,p)=>a+p.m2,0), tma=A.pisos.reduce((a,p)=>a+p.m2alq,0);
+    const var_=((A.factMes/A.factMesAnt-1)*100).toFixed(1);
+    $('panel-titulo').textContent='Panel de control'; $('panel-sub').textContent='Domingo 6 de septiembre de 2027 · '+A.nombre;
+    $('panel-user').innerHTML=`<button class="btn ghost" type="button" id="salir" style="padding:6px 12px;font-size:.85rem">Salir</button>`;
+    $('panel-body').innerHTML=`
+      <div class="kpis">
+        <div class="kpi"><b>${ta} / ${tu}</b><span>unidades alquiladas · ${Math.round(ta/tu*100)} %</span></div>
+        <div class="kpi"><b>${tma} / ${tm}</b><span>m² alquilados · ${Math.round(tma/tm*100)} %</span></div>
+        <div class="kpi ok"><b>${money(A.factMes)}</b><span>facturación de septiembre · +${var_} % vs. agosto</span></div>
+        <div class="kpi"><b>${money(A.cobradoMes)}</b><span>cobrado en el mes · ${Math.round(A.cobradoMes/A.factMes*100)} %</span></div>
+        <div class="kpi alerta"><b>${A.vencidas.clientes}</b><span>clientes con facturas vencidas · ${money(A.vencidas.monto)}</span></div>
+        <div class="kpi"><b>${A.clientes}</b><span>clientes activos · +${A.nuevosMes} altas, −${A.bajasMes} bajas en el mes</span></div>
+        <div class="kpi"><b>${A.ingresosHoy}</b><span>ingresos al edificio hoy</span></div>
+        <div class="kpi"><b>${A.pedidosFul.toLocaleString('es-AR')}</b><span>pedidos de fulfillment en agosto</span></div>
+      </div>
+      <div class="dos">
+        <div class="bloque"><h3>Ocupación por piso</h3>
+          ${A.pisos.map(p=>`<div class="barra-piso"><b>${p.p}</b><div class="track"><div class="fill" style="width:${Math.round(p.m2alq/p.m2*100)}%"></div></div><div class="num">${p.m2alq} / ${p.m2} m²</div></div>
+          <div class="barra-piso" style="margin-top:-4px;font-size:.78rem;color:var(--acero)"><span></span><span>${p.alq} de ${p.uni} unidades · ${Math.round(p.m2alq/p.m2*100)} % de m²</span><span></span></div>`).join('')}
+          <div class="barra-piso" style="border-top:2px solid var(--tinta);padding-top:8px"><b>Total</b><div class="track"><div class="fill" style="width:${Math.round(tma/tm*100)}%"></div></div><div class="num"><b>${tma} / ${tm} m²</b></div></div>
+        </div>
+        <div class="bloque"><h3>Facturas vencidas</h3><table class="mini"><thead><tr><th>Cliente</th><th>Unidad</th><th class="num">Importe</th><th class="num">Días</th></tr></thead><tbody>
+          ${A.morosos.map(m=>`<tr><td>${m.c}</td><td>${m.u}</td><td class="num">${money(m.imp)}</td><td class="num">${m.dias}</td></tr>`).join('')}
+          <tr><td colspan="2"><b>Total</b></td><td class="num"><b>${money(A.morosos.reduce((a,m)=>a+m.imp,0))}</b></td><td></td></tr></tbody></table></div>
+      </div>
+      <div class="dos" style="margin-top:22px">
+        <div class="bloque"><h3>Ingresos diarios por cliente (promedio últimos 30 días)</h3><table class="mini"><thead><tr><th>Cliente</th><th>Unidad</th><th class="num">Ingresos / día</th><th class="num">Hoy</th></tr></thead><tbody>
+          ${A.accesos.map(a=>`<tr><td>${a.c}</td><td>${a.u}</td><td class="num">${a.d.toLocaleString('es-AR')}</td><td class="num">${a.hoy}</td></tr>`).join('')}</tbody></table></div>
+        <div class="bloque"><h3>Próximos vencimientos de contrato</h3><table class="mini"><thead><tr><th>Cliente</th><th>Unidad</th><th>Vence</th><th class="num">Días</th></tr></thead><tbody>
+          ${A.vencen.map(v=>`<tr><td>${v.c}</td><td>${v.u}</td><td>${fecha(v.f)}</td><td class="num">${Math.round((new Date(v.f+'T12:00:00')-HOY)/86400000)}</td></tr>`).join('')}</tbody></table></div>
+      </div>`;
+    $('salir').addEventListener('click',vistaLogin);
+  }
+</script>
+</body>
+</html>
